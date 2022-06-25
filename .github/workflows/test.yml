@@ -29,7 +29,7 @@ jobs:
           export HashedControlPassword=$(tor --quiet --hash-password "")
           sudo sh -c 'echo "HashedControlPassword $HashedControlPassword" >> /etc/tor/torrc'
           sudo sh -c 'cat /etc/tor/torrc'
-          service tor start
+          sudo service tor start
           pidof tor
 
       - name: Set up Ruby
