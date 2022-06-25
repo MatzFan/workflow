@@ -24,11 +24,11 @@ jobs:
         run: |
           sudo apt-get install -y tor
           tor --version
-          sh -c 'echo SOCKSPort 9050 > /etc/tor/torrc'
-          sh -c 'echo ControlPort 9051 >> /etc/tor/torrc'
+          sudo sh -c 'echo SOCKSPort 9050 > /etc/tor/torrc'
+          sudo sh -c 'echo ControlPort 9051 >> /etc/tor/torrc'
           export HashedControlPassword=$(tor --quiet --hash-password "")
-          sh -c 'echo "HashedControlPassword $HashedControlPassword" >> /etc/tor/torrc'
-          sh -c 'cat /etc/tor/torrc'
+          sudo sh -c 'echo "HashedControlPassword $HashedControlPassword" >> /etc/tor/torrc'
+          sudo sh -c 'cat /etc/tor/torrc'
           service tor start
           pidof tor
 
