@@ -23,11 +23,14 @@ jobs:
       - name: Install and setup dante
         run: |
           sudo apt-get install -y dante-server
-          sudo sh -c echo "user.privileged: root\nuser.unprivileged: nobody\ninternal: 0.0.0.0 port=1080\nexternal: eth0\nsocksmethod: username\nclientmethod: none\nclient pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\nsocks pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\n" > /etc/danted.conf
-          sudo sh -c cat /etc/danted.conf
+          sudo echo "user.privileged: root\nuser.unprivileged: nobody\ninternal: 0.0.0.0 port=1080\nexternal: eth0\nsocksmethod: username\nclientmethod: none\nclient pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\nsocks pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\n" > /etc/danted.conf
+          sudo cat /etc/danted.conf
+
           sudo ufw allow 1080
+
           sudo useradd -r -s /bin/false usr
-          sh -c echo "pwd\rpwd"|sudo passwd
+          echo pwd | passwd usr --stdin
+
           sudo systemctl restart danted.service
           pidof danted
           systemctl status danted.service
