@@ -16,13 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['3.0']
+        ruby-version: ['3.1']
 
     steps:
       - uses: actions/checkout@v3
       - name: Install and setup dante
         run: |
           sudo apt-get install -y dante-server
+          sudo rm /etc/danted.conf
+          sudo touch /etc/danted.conf
           sudo echo "user.privileged: root\nuser.unprivileged: nobody\ninternal: 0.0.0.0 port=1080\nexternal: eth0\nsocksmethod: username\nclientmethod: none\nclient pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\nsocks pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\n" > /etc/danted.conf
           sudo cat /etc/danted.conf
 
