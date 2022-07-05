@@ -1,0 +1,37 @@
+---
+name: Ruby
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['3.1']
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install onnx
+        run: |
+          wget https://storage.googleapis.com/download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz
+          tar tar zxvf ssd_mobilenet_v1_coco_2018_01_28.tar.gz
+          cd ssd_mobilenet_v1_coco_2018_01_28
+
+      - name: Set up Ruby  # not needed here
+        # Automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+        # change this to (see https://github.com/ruby/setup-ruby#versioning):
+        # uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@2b019609e2b0f1ea1a2bc8ca11cb82ab46ada124
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - name: Check model
+        run: ls
