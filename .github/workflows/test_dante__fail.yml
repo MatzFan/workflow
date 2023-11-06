@@ -1,48 +1,48 @@
----
-name: Ruby
+# ---
+# name: Ruby
 
-on:
-  push:
-    branches: '*'
-  pull_request:
-    branches: '*'
+# on:
+#   push:
+#     branches: '*'
+#   pull_request:
+#     branches: '*'
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
 
-jobs:
-  test:
+# jobs:
+#   test:
 
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ['3.1']
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         ruby-version: ['3.1']
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install and setup dante
-        run: |
-          sudo apt-get install -y dante-server
-          sudo rm /etc/danted.conf
-          sudo touch /etc/danted.conf
-          sudo echo "user.privileged: root\nuser.unprivileged: nobody\ninternal: 0.0.0.0 port=1080\nexternal: eth0\nsocksmethod: username\nclientmethod: none\nclient pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\nsocks pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\n" > /etc/danted.conf
-          sudo cat /etc/danted.conf
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Install and setup dante
+#         run: |
+#           sudo apt-get install -y dante-server
+#           sudo rm /etc/danted.conf
+#           sudo touch /etc/danted.conf
+#           sudo echo "user.privileged: root\nuser.unprivileged: nobody\ninternal: 0.0.0.0 port=1080\nexternal: eth0\nsocksmethod: username\nclientmethod: none\nclient pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\nsocks pass {\nfrom: 0.0.0.0/0 to: 0.0.0.0/0\n}\n" > /etc/danted.conf
+#           sudo cat /etc/danted.conf
 
-          sudo ufw allow 1080
+#           sudo ufw allow 1080
 
-          sudo useradd -r -s /bin/false usr
-          echo pwd | passwd usr --stdin
+#           sudo useradd -r -s /bin/false usr
+#           echo pwd | passwd usr --stdin
 
-          sudo systemctl restart danted.service
-          pidof danted
-          systemctl status danted.service
+#           sudo systemctl restart danted.service
+#           pidof danted
+#           systemctl status danted.service
 
-      - name: Set up Ruby  # not needed here
-        # Automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-        # change this to (see https://github.com/ruby/setup-ruby#versioning):
-        # uses: ruby/setup-ruby@v1
-        uses: ruby/setup-ruby@2b019609e2b0f1ea1a2bc8ca11cb82ab46ada124
-        with:
-          ruby-version: ${{ matrix.ruby-version }}
-      - name: Check socks auth
-        run: curl -x socks5h://usr:pwd@127.0.0.1:1080 https://example.com
+#       - name: Set up Ruby  # not needed here
+#         # Automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+#         # change this to (see https://github.com/ruby/setup-ruby#versioning):
+#         # uses: ruby/setup-ruby@v1
+#         uses: ruby/setup-ruby@2b019609e2b0f1ea1a2bc8ca11cb82ab46ada124
+#         with:
+#           ruby-version: ${{ matrix.ruby-version }}
+#       - name: Check socks auth
+#         run: curl -x socks5h://usr:pwd@127.0.0.1:1080 https://example.com
