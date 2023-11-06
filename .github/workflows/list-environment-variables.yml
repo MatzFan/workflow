@@ -11,7 +11,7 @@ jobs:
         run: env
 
   github-actions-environment-variables-windows:
-    runs-on: windows-latest
+    runs-on: windows
     steps:
       - name: Ubuntu GitHub Actions environment variables List
         run: env
