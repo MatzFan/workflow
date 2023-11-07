@@ -1,37 +1,23 @@
 # https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/environment-variables-full-list-github-actions
 ---
-name: Publish GitHub Actions Artifacts Example
-on:  # yamllint disable-line rule:truthy
-  push:
-    branches: [master]
+name: CI - Ruby
+
+on: #  yamllint disable-line rule:truthy
+  workflow_call:
+  workflow_dispatch:
 
 jobs:
   build:
     name: Build
-    steps:
-      - name: List of GitHub Actions environment variables
-        run: env
-  # github-actions-environment-variables-ubuntu:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: List of the GitHub Actions environment variables on Windows
-  #       run: env
+    # uses: ./.github/workflows/bazel.yml
+    with:
+      name: Build
+      run: env
 
-  # github-actions-environment-variables-windows:
-  #   runs-on: windows-latest
-  #   steps:
-  #     - name: Ubuntu GitHub Actions environment variables List
-  #       run: env
-
-  # github-actions-environment-variables-macos:
-  #   runs-on: macos-latest
-  #   steps:
-  #     - name: MacOs List of GitHub Actions environment variables
-  #       run: env
-
-  matrix-env_vars:
-    name: List environment variables
+  unit-tests:
+    name: Unit Tests
     needs: build
+    # uses: ./.github/workflows/bazel.yml
     strategy:
       fail-fast: false
       matrix:
