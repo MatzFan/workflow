@@ -2,7 +2,7 @@
 ---
 name: CI - Ruby
 
-on: #  yamllint disable-line rule:truthy
+on:  # yamllint disable-line rule:truthy
   workflow_call:
   workflow_dispatch:
 
@@ -10,7 +10,8 @@ jobs:
   build:
     name: Build
     # uses: ./.github/workflows/bazel.yml
-    with:
+    # with:
+    steps:
       name: Build
       run: env
 
