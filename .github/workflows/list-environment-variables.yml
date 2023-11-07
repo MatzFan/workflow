@@ -6,6 +6,11 @@ on:  # yamllint disable-line rule:truthy
     branches: [master]
 
 jobs:
+  build:
+    name: Build
+    steps:
+      - name: List of GitHub Actions environment variables
+        run: env
   # github-actions-environment-variables-ubuntu:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -27,7 +32,6 @@ jobs:
   matrix-env_vars:
     name: List environment variables
     needs: build
-    uses: ./.github/workflows/build.yml
     strategy:
       fail-fast: false
       matrix:
