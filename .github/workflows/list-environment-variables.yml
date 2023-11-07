@@ -1,7 +1,7 @@
 # https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/environment-variables-full-list-github-actions
 ---
 name: Publish GitHub Actions Artifacts Example
-"on":
+on:  # yamllint disable-line rule:truthy
   push:
     branches: [master]
 
