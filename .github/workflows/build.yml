@@ -1,0 +1,6 @@
+---
+ruby:
+  name: Build
+  steps:
+    - name: List of GitHub Actions environment variables
+      run: env

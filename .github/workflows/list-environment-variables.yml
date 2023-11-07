@@ -24,19 +24,15 @@ jobs:
   #     - name: MacOs List of GitHub Actions environment variables
   #       run: env
 
-  build:
+  matrix-env_vars:
     name: List environment variables
-    with:
-      name: Build
-      run: env
-
-
-  unit-tests:
-    name: Unit Tests
     needs: build
+    uses: ./.github/workflows/build.yml
     strategy:
       fail-fast: false
       matrix:
         include:
+          - ruby-version: 3.0.6
+            os: ubuntu
           - ruby-version: 3.0.6
             os: windows
