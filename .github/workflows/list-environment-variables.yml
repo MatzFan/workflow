@@ -11,10 +11,6 @@ jobs:
     steps:
       - name: Show env vars
         run: env
-
-  unit-tests:
-    name: Unit Tests
-    needs: build
     strategy:
       fail-fast: false
       matrix:
