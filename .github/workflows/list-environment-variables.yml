@@ -3,12 +3,11 @@
 name: CI - Ruby
 
 on:  # yamllint disable-line rule:truthy
-  workflow_call:
-  workflow_dispatch:
+  push:
+    branches: [master]
 
 jobs:
   build:
-    name: Build
     steps:
       - name: Show env vars
         run: env
