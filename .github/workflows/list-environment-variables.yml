@@ -3,6 +3,7 @@ name: Publish GitHub Actions Artifacts Example
 on:
   push:
     branches: [ master ]
+
 jobs:
   github-actions-environment-variables-ubuntu:
     runs-on: ubuntu-latest
@@ -11,7 +12,7 @@ jobs:
         run: env
 
   github-actions-environment-variables-windows:
-    runs-on: windows
+    runs-on: windows-latest
     steps:
       - name: Ubuntu GitHub Actions environment variables List
         run: env
@@ -21,3 +22,20 @@ jobs:
     steps:
       - name: MacOs List of GitHub Actions environment variables
         run: env
+
+  build:
+    name: List environment variables
+    with:
+      name: Build
+      run: env
+
+
+   unit-tests:
+    name: Unit Tests
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ruby-version: 3.0.6
+            os: windows
