@@ -9,16 +9,12 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   build:
     name: Build
-    # uses: ./.github/workflows/bazel.yml
-    # with:
     steps:
-      name: Build
       run: env
 
   unit-tests:
     name: Unit Tests
     needs: build
-    # uses: ./.github/workflows/bazel.yml
     strategy:
       fail-fast: false
       matrix:
