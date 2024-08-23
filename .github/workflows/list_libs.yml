@@ -2,7 +2,7 @@
 name: Libs
 on: [push]
 jobs:
-  List Libs:
+  List:
     runs-on: ubuntu-latest
     steps:
       - run: apt list --installed
