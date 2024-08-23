@@ -1,0 +1,8 @@
+---
+name: Libs
+on: [push]
+jobs:
+  List Libs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: apt list --installed
